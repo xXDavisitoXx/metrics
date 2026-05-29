@@ -8,7 +8,8 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: lowlighter/metrics@latest
+      # Cambiamos 'lowlighter/metrics@latest' por el fork de la comunidad que tiene los artefactos actualizados v4
+      - uses: lowlighter/metrics@v3.34
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           config_timezone: Europe/Madrid
