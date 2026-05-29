@@ -12,15 +12,11 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           config_timezone: Europe/Madrid
-          
-          # 1. Dejamos la base original para que vuelvan a salir los gráficos de Issues y PRs
           base: header, activity, community, repositories, metadata
           
-          # 2. El TRUCO: Apagamos explícitamente el plugin de lenguajes de 'metrics' 
-          # para que no te duplique la barra que ya tienes en Vercel
-          plugin_languages: no
+          # ESTO es lo que le dice a metadata que se salte SOLO la sección de lenguajes
+          base_skipped: metadata
           
-          # 3. Tus repositorios destacados como los tenías antes
           plugin_repositories: yes
           plugin_repositories_starred: 10
           plugin_repositories_order: starred
