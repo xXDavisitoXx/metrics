@@ -13,17 +13,14 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           config_timezone: Europe/Madrid
           
-          # 1. Filtramos la BASE para dejar solo la info global útil y quitar los lenguajes (metadata)
-          base: header, activity, community, repositories
+          # 1. Dejamos la base original para que vuelvan a salir los gráficos de Issues y PRs
+          base: header, activity, community, repositories, metadata
           
-          # 2. Desactivamos explícitamente el desglose de líneas de código y lenguajes en la base
-          base_indepth: no
-          base_hireable: no
+          # 2. El TRUCO: Apagamos explícitamente el plugin de lenguajes de 'metrics' 
+          # para que no te duplique la barra que ya tienes en Vercel
+          plugin_languages: no
           
-          # 3. Configuramos tus repositorios destacados (lo que ya tenías)
+          # 3. Tus repositorios destacados como los tenías antes
           plugin_repositories: yes
           plugin_repositories_starred: 10
           plugin_repositories_order: starred
-
-          # Nota: Al no añadir "plugin_languages: yes" ni "metadata" en la base, 
-          # la barra de Shell/Rust/WGSL desaparecerá de esta imagen, dejando el protagonismo a tu tarjeta de Vercel.
