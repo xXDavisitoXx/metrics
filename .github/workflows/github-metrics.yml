@@ -11,12 +11,8 @@ jobs:
       - uses: lowlighter/metrics@latest
         with:
           token: ${{ secrets.METRICS_TOKEN }}
-          
-          # Mantiene el bloque de tus datos globales de arriba
-          base: header, activity, community, repositories, metadata
           config_timezone: Europe/Madrid
-          
-          # Configuración estándar del plugin para mostrar tus repos populares
+          base: header, activity, community, repositories, metadata
           plugin_repositories: yes
           plugin_repositories_starred: 10
           plugin_repositories_order: starred
