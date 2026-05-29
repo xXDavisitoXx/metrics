@@ -5,17 +5,25 @@ on:
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: General analytics
-        uses: lowlighter/metrics@latest
+      - uses: lowlighter/metrics@latest
         with:
           token: ${{ secrets.METRICS_TOKEN }}
-          user: xXDavisitoXx
-          template: classic
-          base: header, activity, community, repositories, metadata
           config_timezone: Europe/Madrid
-          plugin_languages: yes
-          plugin_languages_sections: most-used
-          plugin_languages_details: percentage
-          plugin_followup: yes
-          plugin_followup_sections: repositories
+          
+          # 1. Filtramos la BASE para dejar solo la info global útil y quitar los lenguajes (metadata)
+          base: header, activity, community, repositories
+          
+          # 2. Desactivamos explícitamente el desglose de líneas de código y lenguajes en la base
+          base_indepth: no
+          base_hireable: no
+          
+          # 3. Configuramos tus repositorios destacados (lo que ya tenías)
+          plugin_repositories: yes
+          plugin_repositories_starred: 10
+          plugin_repositories_order: starred
+
+          # Nota: Al no añadir "plugin_languages: yes" ni "metadata" en la base, 
+          # la barra de Shell/Rust/WGSL desaparecerá de esta imagen, dejando el protagonismo a tu tarjeta de Vercel.
